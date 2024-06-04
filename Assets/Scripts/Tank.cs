@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tank : MonoBehaviour
 {
@@ -47,5 +48,14 @@ public class Tank : MonoBehaviour
         moveHorizontal *= Time.deltaTime;
 
         transform.Translate(moveHorizontal, 0, moveVertical);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            SceneManager.LoadScene("Start");
+        }
     }
 }
