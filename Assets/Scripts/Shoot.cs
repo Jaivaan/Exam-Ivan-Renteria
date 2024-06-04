@@ -21,11 +21,14 @@ public class Shoot : MonoBehaviour
         {
             timeSinceLastShot -= Time.deltaTime;
         }
-        if (Input.GetMouseButtonDown(0) && timeSinceLastShot <= 0)
+        if (Input.GetMouseButton(0) && timeSinceLastShot <= 0)
         {
+            float pressTime = Mathf.Clamp(cooldownTime - timeSinceLastShot, 0f, cooldownTime);
+            float normalizedPressTime = pressTime / cooldownTime;
+            float currentMissileSpeed = missileSpeed * normalizedPressTime;
             Vector3 missilePosition = transform.position + transform.forward*3;
             GameObject missile = Instantiate(missilePrefab, missilePosition, transform.rotation);
-            missile.GetComponent<Rigidbody>().velocity = transform.forward * missileSpeed;
+            missile.GetComponent<Rigidbody>().velocity = transform.forward * currentMissileSpeed;
             Destroy(missile, 4.0f);
             timeSinceLastShot = cooldownTime;
         }
