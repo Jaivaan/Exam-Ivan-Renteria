@@ -16,7 +16,6 @@ public class Camera : MonoBehaviour
 
     void Start()
     {
-        Cursor.visible = false;
 
     }
 
